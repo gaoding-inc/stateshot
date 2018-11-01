@@ -1,0 +1,43 @@
+{
+  "name": "stateshot",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "repository": "git@github.com:doodlewind/stateshot.git",
+  "author": "Yifeng Wang <i@ewind.us>",
+  "license": "MIT",
+  "scripts": {
+    "test": "jest --coverage",
+    "benchmark": "parcel benchmark/index.html",
+    "build:base": "parcel build src/index.js",
+    "build:min": "npm run build:base -- --out-dir dist --out-file stateshot.min.js",
+    "build:dist": "npm run build:base -- --out-dir dist --out-file stateshot.js --no-minify",
+    "build": "npm run build:dist & npm run build:min",
+    "lint": "standard",
+    "release": "npm run lint && npm run build && np"
+  },
+  "files": [
+    "*.md",
+    "src",
+    "dist"
+  ],
+  "keywords": [
+    "stateshot",
+    "history",
+    "state",
+    "undo",
+    "redo",
+    "snapshot",
+    "json",
+    "data",
+    "state management"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-stage-0": "^6.24.1",
+    "jest": "^23.6.0",
+    "np": "^3.0.4",
+    "standard": "^12.0.1"
+  }
+}
