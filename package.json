@@ -1,7 +1,7 @@
 {
   "name": "stateshot",
   "version": "1.0.1",
-  "main": "dist/index.js",
+  "main": "dist/stateshot.js",
   "repository": "git@github.com:doodlewind/stateshot.git",
   "author": "Yifeng Wang <i@ewind.us>",
   "license": "MIT",
@@ -13,7 +13,7 @@
     "build:dist": "npm run build:base -- --out-dir dist --out-file stateshot.js --no-minify",
     "build": "npm run build:dist & npm run build:min",
     "lint": "standard",
-    "release": "npm run lint && npm run build && np"
+    "release": "np"
   },
   "files": [
     "*.md",
