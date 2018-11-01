@@ -19,6 +19,8 @@
   </a>
 </p>
 
+![stateshot](./resources/logo.png)
+
 > Just push your states into StateShot and `undo` / `redo` them!
 
 
@@ -47,6 +49,23 @@ history.get() // { a: 2, b: 2 }
 history.undo().get() // { a: 1, b: 2 }
 history.redo().get() // { a: 2, b: 2 }
 ```
+
+## Concepts
+For history state management, the top need is the `undo` / `redo` API. That's what SnapShot provides out of the box, which can be simply described in image below:
+
+![stateshot](./resources/concept-1.png)
+
+Trivial, huh? while in real world projects, the price on saving full state is high. Immutable data structure is known to be suitabel for this, since it can share data structure in different references. However, this requires fully adaptation to immutable libs - can be hard indeed.
+
+StateShot supports sharable data structure under its tiny API surface. The core concept is to serialize each node into chunks, computing chunks' hash and share same space if hash meets:
+
+![stateshot](./resources/concept-2.png)
+
+Besides the flexible rule-based transforming StateShot supports, it also provides another low-hanging fruit optimization for SPA apps. Suppose your root state is composed of multi "pages", editing on one page does not affect other pages. In this case computing hash on full state is inefficient. As a solution, you can simply specify a `pickIndex` on pushing new state, telling the lib which page to record:
+
+![stateshot](./resources/concept-3.png)
+
+With this hint, only the affected child's hash will be re-computed. Other children simply remains the same with previous record.
 
 
 ## API
