@@ -3,16 +3,19 @@
 
 <p>
   <a href="https://travis-ci.org/doodlewind/stateshot">
-    <img src="https://travis-ci.org/doodlewind/stateshot.svg?branch=master">
+    <img src="https://travis-ci.org/doodlewind/stateshot.svg?branch=master"/>
+  </a>
+  <a href='https://coveralls.io/github/doodlewind/stateshot?branch=master'>
+    <img src='https://coveralls.io/repos/github/doodlewind/stateshot/badge.svg?branch=master' alt='Coverage Status'/>
   </a>
   <a href="https://unpkg.com/stateshot/dist/stateshot.min.js">
-    <img src="http://img.badgesize.io/https://unpkg.com/stateshot/dist/stateshot.min.js?compression=gzip&amp;label=size&amp;maxAge=300">
+    <img src="http://img.badgesize.io/https://unpkg.com/stateshot/dist/stateshot.min.js?compression=gzip&amp;label=size&amp;maxAge=300"/>
   </a>
   <a href="https://standardjs.com">
-    <img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg">
+    <img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg"/>
   </a>
   <a href="./package.json">
-    <img src="https://img.shields.io/npm/v/stateshot.svg?maxAge=300&label=version&colorB=007ec6&maxAge=300">
+    <img src="https://img.shields.io/npm/v/stateshot.svg?maxAge=300&label=version&colorB=007ec6&maxAge=300"/>
   </a>
 </p>
 
