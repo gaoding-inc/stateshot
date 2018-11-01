@@ -1,6 +1,6 @@
 {
   "name": "stateshot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "main": "dist/stateshot.js",
   "repository": "git@github.com:doodlewind/stateshot.git",
   "author": "Yifeng Wang <i@ewind.us>",
