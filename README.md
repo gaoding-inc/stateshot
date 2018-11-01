@@ -51,7 +51,7 @@ history.redo().get() // { a: 2, b: 2 }
 ```
 
 ## Concepts
-For history state management, the top need is the `undo` / `redo` API. That's what SnapShot provides out of the box, which can be simply described in image below:
+For history state management, the top need is the `undo` / `redo` API. That's what StateShot provides out of the box, which can be simply described in image below:
 
 ![stateshot](./resources/concept-1.png)
 
@@ -76,7 +76,7 @@ With this hint, only the affected child's hash will be re-computed. Other childr
 Main class for state management, supported options:
 
 * `rules` - Optional rules array for optimizing data transforming.
-* `wait` - Debounce time for `push` in milliseconds, `50` by default.
+* `delay` - Debounce time for `push` in milliseconds, `50` by default.
 * `maxLength` - Max length saving history states, `100` by default.
 
 #### `push`

@@ -1,9 +1,9 @@
 import { record2State, state2Record } from './transform'
 
 export class History {
-  constructor (options = { rules: [], wait: 50, maxLength: 100 }) {
+  constructor (options = { rules: [], delay: 50, maxLength: 100 }) {
     this.rules = options.rules || []
-    this.wait = options.wait || 50
+    this.delay = options.delay || 50
     this.maxLength = options.maxLength || 100
 
     this.$index = -1
@@ -80,10 +80,10 @@ export class History {
           this.$debounceTime = null
           resolve(this)
           this.$pendingPromise = null
-        }, this.wait)
+        }, this.delay)
       })
       return this.$pendingPromise
-    } else if (currentTime - this.$debounceTime < this.wait) {
+    } else if (currentTime - this.$debounceTime < this.delay) {
       this.$pendingState = state
       this.$pendingPickIndex = pickIndex
       return this.$pendingPromise

@@ -138,7 +138,7 @@ test('support reset', () => {
 })
 
 test('return promise with async push', () => {
-  const history = new History({ wait: 0 })
+  const history = new History({ delay: 0 })
   const state = getState()
 
   return history.push(state).then(h => {
@@ -147,7 +147,7 @@ test('return promise with async push', () => {
 })
 
 test('may reject on async push', () => {
-  const history = new History({ wait: 0 })
+  const history = new History({ delay: 0 })
   const state = getState()
   history.push(state)
   history.$debounceTime = null
@@ -156,7 +156,7 @@ test('may reject on async push', () => {
 })
 
 test('support async push', () => {
-  const history = new History({ wait: 5 })
+  const history = new History({ delay: 5 })
   const state = getState()
 
   for (let i = 0; i < 100; i++) {
