@@ -6,7 +6,7 @@
   "author": "Yifeng Wang <i@ewind.us>",
   "license": "MIT",
   "scripts": {
-    "test": "jest --coverage",
+    "test": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "benchmark": "parcel benchmark/index.html",
     "build:base": "parcel build src/index.js",
     "build:min": "npm run build:base -- --out-dir dist --out-file stateshot.min.js",
@@ -36,6 +36,7 @@
     "babel-jest": "^23.6.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
     "babel-preset-stage-0": "^6.24.1",
+    "coveralls": "^3.0.2",
     "jest": "^23.6.0",
     "np": "^3.0.4",
     "standard": "^12.0.1"
