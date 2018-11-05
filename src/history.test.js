@@ -188,3 +188,13 @@ test('can return wrong output when picking wrong index', () => {
   history.pushSync(state, 1)
   expect(history.get()).not.toEqual(state)
 })
+
+test('can disable chunking', () => {
+  const history = new History({ useChunks: false })
+  const state1 = getState()
+  const state2 = getState()
+  history.pushSync(state1)
+  history.pushSync(state2)
+  expect(history.get()).toEqual(state2)
+  expect(history.undo().get()).toEqual(state1)
+})

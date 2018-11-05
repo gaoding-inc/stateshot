@@ -1,10 +1,16 @@
 import { record2State, state2Record } from './transform'
 
 export class History {
-  constructor (options = { rules: [], delay: 50, maxLength: 100 }) {
+  constructor (options = {
+    rules: [],
+    delay: 50,
+    maxLength: 100,
+    useChunks: true
+  }) {
     this.rules = options.rules || []
     this.delay = options.delay || 50
     this.maxLength = options.maxLength || 100
+    this.useChunks = !!options.useChunks
 
     this.$index = -1
     this.$records = []
@@ -40,17 +46,18 @@ export class History {
 
   // Void => State
   get () {
-    const currentTree = this.$records[this.$index]
-    if (!currentTree) return null
-    return record2State(currentTree, this.$chunks)
+    const currentRecord = this.$records[this.$index]
+    if (!currentRecord) return null
+    if (!this.useChunks) return currentRecord
+    return record2State(currentRecord, this.$chunks)
   }
 
   // (State, Number?) => History
   pushSync (state, pickIndex = -1) {
     const latestRecord = this.$records[this.$index] || null
-    const record = state2Record(
-      state, this.$chunks, this.rules, latestRecord, pickIndex
-    )
+    const record = this.useChunks
+      ? state2Record(state, this.$chunks, this.rules, latestRecord, pickIndex)
+      : state
     this.$index++
     this.$records[this.$index] = record
     // Clear redo records.

@@ -6,6 +6,7 @@
   "author": "Yifeng Wang <i@ewind.us>",
   "license": "MIT",
   "scripts": {
+    "test:local": "jest --coverage",
     "test": "jest --coverage && cat ./coverage/lcov.info | coveralls",
     "benchmark": "parcel benchmark/index.html",
     "build:base": "parcel build src/index.js",

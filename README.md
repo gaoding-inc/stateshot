@@ -55,7 +55,7 @@ For history state management, the top need is the `undo` / `redo` API. That's wh
 
 ![stateshot](./resources/concept-1.png)
 
-Trivial, huh? while in real world projects, the price on saving full state is high. Immutable data structure is known to be suitabel for this, since it can share data structure in different references. However, this requires fully adaptation to immutable libs - can be hard indeed.
+Trivial, right? While in real world projects, the price on saving full state is high. Immutable data structure is known to be suitabel for this, since it can share data structure in different references. However, this requires fully adaptation to immutable libs - can be hard indeed.
 
 StateShot supports sharable data structure under its tiny API surface. The core concept is to serialize each node into chunks, computing chunks' hash and share same space if hash meets:
 
@@ -78,6 +78,9 @@ Main class for state management, supported options:
 * `rules` - Optional rules array for optimizing data transforming.
 * `delay` - Debounce time for `push` in milliseconds, `50` by default.
 * `maxLength` - Max length saving history states, `100` by default.
+* `useChunks` - Whether serializing state data into chunks. `true` by default.
+
+> If you want to use StateShot with immutable data, simply set `useChunks` to `false` and new reference to state will be directly saved as records.
 
 #### `push`
 `(state: State, pickIndex?: Number) => Promise<History>`
