@@ -101,6 +101,26 @@ test('support max length', () => {
   expect(history.hasRedo).toBeTruthy()
 })
 
+test('can get valid record length', () => {
+  const history = new History({ maxLength: 5 })
+  expect(history.length).toEqual(0)
+
+  const state = getState()
+
+  history.pushSync(state)
+  expect(history.length).toEqual(1)
+
+  for (let i = 0; i < 4; i++) {
+    history.pushSync(state)
+  }
+  expect(history.length).toEqual(5)
+
+  for (let i = 0; i < 4; i++) {
+    history.pushSync(state)
+  }
+  expect(history.length).toEqual(5)
+})
+
 test('can clear redo records', () => {
   const history = new History()
   const state = getState()

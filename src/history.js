@@ -44,6 +44,10 @@ export class History {
     return this.$index > lowerBound
   }
 
+  get length () {
+    return Math.min(this.$records.length, this.maxLength)
+  }
+
   // Void => State
   get () {
     const currentRecord = this.$records[this.$index]
