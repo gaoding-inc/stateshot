@@ -83,14 +83,14 @@ Main class for state management, supported options:
 > If you want to use StateShot with immutable data, simply set `useChunks` to `false` and new reference to state will be directly saved as records.
 
 #### `push`
-`(state: State, pickIndex?: Number) => Promise<History>`
+`(state: State, pickIndex?: number) => Promise<History>`
 
 Push state data in history, using `pushSync` under the hood. `state` doesn't have to be JSON serializable since you can define rules to parse it.
 
 If `pickIndex` is specified, only this index of state's child will be serialized. Other children will be copied from previous record. This optimization only happens if previous records exists.
 
 #### `pushSync`
-`(state: State, pickIndex?: Number) => History`
+`(state: State, pickIndex?: number) => History`
 
 Push state into history stack immediately. `pickIndex` also supported.
 
@@ -105,12 +105,12 @@ Undo a record if possible, supports chaining, e.g., `undo().undo().get()`.
 Redo a record if possible, also supports chaining,
 
 #### `hasUndo`
-`Boolean`
+`boolean`
 
 Whether current state has undo records before.
 
 #### `hasRedo`
-`Boolean`
+`boolean`
 
 Whether current state has redo records after.
 
@@ -126,14 +126,14 @@ Clear internal data structure.
 
 
 ### `Rule`
-`{ match: Function, toRecord: Function, fromRecord: Function }`
+`{ match: function, toRecord: function, fromRecord: function }`
 
 By defining rules you can specify how to transform between states and internal "chunks". Chunks are used for structure sharing.
 
 > Rules are only designed for optimization. You don't have to learn or use them unless you've encountered performance bottleneck.
 
 #### `match`
-`node: StateNode => Boolean`
+`node: StateNode => boolean`
 
 Defines whether a rule can be matched. For example, if you're saving a vDOM state with different `type` field, just define some rules like `node => node.type === 'image'` or `node => node.type === 'text'`.
 
@@ -158,7 +158,7 @@ const toRecord = node => ({
     { ...node, image: undefined },
     node.image
   ],
-  children: null // no children since image node is leaf node.
+  children: null // No children since image node is leaf node.
 })
 ```
 

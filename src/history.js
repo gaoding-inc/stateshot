@@ -16,13 +16,13 @@ export class History {
     this.$records = []
     this.$chunks = {}
 
-    this.$pendingState = null
-    this.$pendingPickIndex = null
-    this.$pendingPromise = null
+    this.$pending = {
+      state: null, pickIndex: null, onResolves: [], timer: null
+    }
     this.$debounceTime = null
   }
 
-  // Boolean
+  // : boolean
   get hasRedo () {
     // No redo when pointing to last record.
     if (this.$index === this.$records.length - 1) return false
@@ -37,7 +37,7 @@ export class History {
     return hasRecordAfterIndex
   }
 
-  // Boolean
+  // : boolean
   get hasUndo () {
     // Only has undo if we have records before index.
     const lowerBound = Math.max(this.$records.length - this.maxLength, 0)
@@ -48,7 +48,7 @@ export class History {
     return Math.min(this.$records.length, this.maxLength)
   }
 
-  // Void => State
+  // void => State
   get () {
     const currentRecord = this.$records[this.$index]
     if (!currentRecord) return null
@@ -56,7 +56,7 @@ export class History {
     return record2State(currentRecord, this.$chunks)
   }
 
-  // (State, Number?) => History
+  // (State, number?) => History
   pushSync (state, pickIndex = -1) {
     const latestRecord = this.$records[this.$index] || null
     const record = this.useChunks
@@ -76,44 +76,49 @@ export class History {
     return this
   }
 
-  // (State, Number?) => Promise<History>
+  // (State, number?) => Promise<History>
   push (state, pickIndex = -1) {
     const currentTime = +new Date()
-    if (!this.$pendingState) {
-      this.$pendingState = state
-      this.$pendingPickIndex = pickIndex
+    const setupPending = () => {
+      this.$pending.state = state
+      this.$pending.pickIndex = pickIndex
       this.$debounceTime = currentTime
-      this.$pendingPromise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          this.pushSync(this.$pendingState, this.$pendingPickIndex)
-          this.$pendingState = null
-          this.$pendingPickIndex = null
-          this.$debounceTime = null
-          resolve(this)
-          this.$pendingPromise = null
+      const promise = new Promise((resolve, reject) => {
+        this.$pending.onResolves.push(resolve)
+        this.$pending.timer = setTimeout(() => {
+          this.pushSync(this.$pending.state, this.$pending.pickIndex)
+          this.$pending.state = null
+          this.$pending.pickIndex = null
+          this.$pending.timer = null
+          this.$pending.onResolves.forEach(resolve => resolve(this))
+          this.$pending.onResolves = []
         }, this.delay)
       })
-      return this.$pendingPromise
+      return promise
+    }
+    // First time called.
+    if (this.$pending.timer == null) {
+      return setupPending()
     } else if (currentTime - this.$debounceTime < this.delay) {
-      this.$pendingState = state
-      this.$pendingPickIndex = pickIndex
-      return this.$pendingPromise
+      // Has been called without resolved.
+      clearTimeout(this.$pending.timer)
+      return setupPending()
     } else return Promise.reject(new Error('Invalid push ops'))
   }
 
-  // Void => History
+  // void => History
   undo () {
     if (this.hasUndo) this.$index--
     return this
   }
 
-  // Void => History
+  // void => History
   redo () {
     if (this.hasRedo) this.$index++
     return this
   }
 
-  // Void => History
+  // void => History
   reset () {
     this.$index = -1
     this.$records.forEach(tree => { tree = null })
@@ -121,9 +126,9 @@ export class History {
     this.$records = []
     this.$chunks = {}
 
-    this.$pendingState = null
-    this.$pendingPickIndex = null
-    this.$pendingPromise = null
+    this.$pending = {
+      state: null, pickIndex: null, onResolves: [], timer: null
+    }
     this.$debounceTime = null
     return this
   }
