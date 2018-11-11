@@ -114,6 +114,11 @@ Whether current state has undo records before.
 
 Whether current state has redo records after.
 
+#### `length`
+`number`
+
+Valid record length of current instance.
+
 #### `get`
 `() => State`
 

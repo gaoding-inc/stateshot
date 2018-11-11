@@ -44,6 +44,7 @@ export class History {
     return this.$index > lowerBound
   }
 
+  // : number
   get length () {
     return Math.min(this.$records.length, this.maxLength)
   }

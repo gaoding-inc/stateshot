@@ -13,7 +13,7 @@
     "build:min": "MINIFY=true rollup -c rollup.config.js",
     "build": "npm run build:cjs && npm run build:min",
     "lint": "standard",
-    "release": "np"
+    "release": "npm run build && np"
   },
   "files": [
     "*.md",
