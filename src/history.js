@@ -16,9 +16,9 @@ export class History {
     this.$records = []
     this.$chunks = {}
 
-    this.$pendingState = null
-    this.$pendingPickIndex = null
-    this.$pendingPromise = null
+    this.$pending = {
+      state: null, pickIndex: null, onResolves: [], timer: null
+    }
     this.$debounceTime = null
   }
 
@@ -79,25 +79,30 @@ export class History {
   // (State, Number?) => Promise<History>
   push (state, pickIndex = -1) {
     const currentTime = +new Date()
-    if (!this.$pendingState) {
-      this.$pendingState = state
-      this.$pendingPickIndex = pickIndex
+    const setupPending = () => {
+      this.$pending.state = state
+      this.$pending.pickIndex = pickIndex
       this.$debounceTime = currentTime
-      this.$pendingPromise = new Promise((resolve, reject) => {
-        setTimeout(() => {
-          this.pushSync(this.$pendingState, this.$pendingPickIndex)
-          this.$pendingState = null
-          this.$pendingPickIndex = null
-          this.$debounceTime = null
-          resolve(this)
-          this.$pendingPromise = null
+      const promise = new Promise((resolve, reject) => {
+        this.$pending.onResolves.push(resolve)
+        this.$pending.timer = setTimeout(() => {
+          this.pushSync(this.$pending.state, this.$pending.pickIndex)
+          this.$pending.state = null
+          this.$pending.pickIndex = null
+          this.$pending.timer = null
+          this.$pending.onResolves.forEach(resolve => resolve(this))
+          this.$pending.onResolves = []
         }, this.delay)
       })
-      return this.$pendingPromise
+      return promise
+    }
+    // First time called.
+    if (this.$pending.timer == null) {
+      return setupPending()
     } else if (currentTime - this.$debounceTime < this.delay) {
-      this.$pendingState = state
-      this.$pendingPickIndex = pickIndex
-      return this.$pendingPromise
+      // Has been called without resolved.
+      clearTimeout(this.$pending.timer)
+      return setupPending()
     } else return Promise.reject(new Error('Invalid push ops'))
   }
 
@@ -121,9 +126,9 @@ export class History {
     this.$records = []
     this.$chunks = {}
 
-    this.$pendingState = null
-    this.$pendingPickIndex = null
-    this.$pendingPromise = null
+    this.$pending = {
+      state: null, pickIndex: null, onResolves: [], timer: null
+    }
     this.$debounceTime = null
     return this
   }
