@@ -22,7 +22,7 @@ export class History {
     this.$debounceTime = null
   }
 
-  // Boolean
+  // : boolean
   get hasRedo () {
     // No redo when pointing to last record.
     if (this.$index === this.$records.length - 1) return false
@@ -37,7 +37,7 @@ export class History {
     return hasRecordAfterIndex
   }
 
-  // Boolean
+  // : boolean
   get hasUndo () {
     // Only has undo if we have records before index.
     const lowerBound = Math.max(this.$records.length - this.maxLength, 0)
@@ -48,7 +48,7 @@ export class History {
     return Math.min(this.$records.length, this.maxLength)
   }
 
-  // Void => State
+  // void => State
   get () {
     const currentRecord = this.$records[this.$index]
     if (!currentRecord) return null
@@ -56,7 +56,7 @@ export class History {
     return record2State(currentRecord, this.$chunks)
   }
 
-  // (State, Number?) => History
+  // (State, number?) => History
   pushSync (state, pickIndex = -1) {
     const latestRecord = this.$records[this.$index] || null
     const record = this.useChunks
@@ -76,7 +76,7 @@ export class History {
     return this
   }
 
-  // (State, Number?) => Promise<History>
+  // (State, number?) => Promise<History>
   push (state, pickIndex = -1) {
     const currentTime = +new Date()
     const setupPending = () => {
@@ -106,19 +106,19 @@ export class History {
     } else return Promise.reject(new Error('Invalid push ops'))
   }
 
-  // Void => History
+  // void => History
   undo () {
     if (this.hasUndo) this.$index--
     return this
   }
 
-  // Void => History
+  // void => History
   redo () {
     if (this.hasRedo) this.$index++
     return this
   }
 
-  // Void => History
+  // void => History
   reset () {
     this.$index = -1
     this.$records.forEach(tree => { tree = null })
