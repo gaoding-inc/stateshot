@@ -55,9 +55,9 @@ For history state management, the top need is the `undo` / `redo` API. That's wh
 
 ![stateshot](./resources/concept-1.png)
 
-Trivial, right? While in real world projects, the price on saving full state is high. Immutable data structure is known to be suitabel for this, since it can share data structure in different references. However, this requires fully adaptation to immutable libs - can be hard indeed.
+Trivial, right? While in real world projects, the price on saving full state is high. Immutable data structure is known to be suitable for this, since it can share data structure in different references. However, this requires fully adaptation to immutable libs - can be aggressive indeed.
 
-StateShot supports sharable data structure under its tiny API surface. The core concept is to serialize each node into chunks, computing chunks' hash and share same space if hash meets:
+StateShot supports sharable data structure under its tiny API surface. The core concept is to serialize state node into chunks, computing chunks' hash and share same space if hash meets:
 
 ![stateshot](./resources/concept-2.png)
 
@@ -73,7 +73,7 @@ With this hint, only the affected child's hash will be re-computed. Other childr
 ### `History`
 `new History(options?: Options)`
 
-Main class for state management, supported options:
+Main class for state management, option includes:
 
 * `rules` - Optional rules array for optimizing data transforming.
 * `delay` - Debounce time for `push` in milliseconds, `50` by default.
@@ -85,7 +85,7 @@ Main class for state management, supported options:
 #### `push`
 `(state: State, pickIndex?: number) => Promise<History>`
 
-Push state data in history, using `pushSync` under the hood. `state` doesn't have to be JSON serializable since you can define rules to parse it.
+Push state data into history, using `pushSync` under the hood. `state` doesn't have to be JSON serializable since you can define rules to parse it.
 
 If `pickIndex` is specified, only this index of state's child will be serialized. Other children will be copied from previous record. This optimization only happens if previous records exists.
 
