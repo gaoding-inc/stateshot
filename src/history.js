@@ -91,6 +91,7 @@ export class History {
           this.$pending.state = null
           this.$pending.pickIndex = null
           this.$pending.timer = null
+          this.$debounceTime = null
           this.$pending.onResolves.forEach(resolve => resolve(this))
           this.$pending.onResolves = []
         }, this.delay)
@@ -98,11 +99,12 @@ export class History {
       return promise
     }
     // First time called.
-    if (this.$pending.timer == null) {
+    if (this.$pending.timer === null) {
       return setupPending()
     } else if (currentTime - this.$debounceTime < this.delay) {
       // Has been called without resolved.
       clearTimeout(this.$pending.timer)
+      this.$pending.timer = null
       return setupPending()
     } else return Promise.reject(new Error('Invalid push ops'))
   }
@@ -126,7 +128,7 @@ export class History {
     Object.keys(this.$chunks).forEach(key => { this.$chunks[key] = null })
     this.$records = []
     this.$chunks = {}
-
+    clearTimeout(this.$pending.timer)
     this.$pending = {
       state: null, pickIndex: null, onResolves: [], timer: null
     }
