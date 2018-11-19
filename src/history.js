@@ -10,7 +10,7 @@ export class History {
     this.rules = options.rules || []
     this.delay = options.delay || 50
     this.maxLength = options.maxLength || 100
-    this.useChunks = !!options.useChunks
+    this.useChunks = options.useChunks === undefined ? false : options.useChunks
 
     this.$index = -1
     this.$records = []
