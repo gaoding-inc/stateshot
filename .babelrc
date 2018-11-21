@@ -1,6 +1,7 @@
 {
-  "presets": ["stage-0"],
+  "presets": ["stage-0", ["env", { "modules": false }]],
   "env": {
+    "targets": { "ie": "11" },
     "test": {
       "plugins": ["transform-es2015-modules-commonjs"]
     }
