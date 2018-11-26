@@ -2,11 +2,11 @@
 💾 Non-aggressive history state management with structure sharing.
 
 <p>
-  <a href="https://travis-ci.org/doodlewind/stateshot">
-    <img src="https://travis-ci.org/doodlewind/stateshot.svg?branch=master"/>
+  <a href="https://travis-ci.org/gaoding-inc/stateshot">
+    <img src="https://travis-ci.org/gaoding-inc/stateshot.svg?branch=master"/>
   </a>
-  <a href='https://coveralls.io/github/doodlewind/stateshot?branch=master'>
-    <img src='https://coveralls.io/repos/github/doodlewind/stateshot/badge.svg?branch=master' alt='Coverage Status'/>
+  <a href='https://coveralls.io/github/gaoding-inc/stateshot?branch=master'>
+    <img src='https://coveralls.io/repos/github/gaoding-inc/stateshot/badge.svg?branch=master' alt='Coverage Status'/>
   </a>
   <a href="https://unpkg.com/stateshot/dist/stateshot.min.js">
     <img src="http://img.badgesize.io/https://unpkg.com/stateshot/dist/stateshot.min.js?compression=gzip&amp;label=size&amp;maxAge=300"/>
