@@ -79,6 +79,7 @@ Main class for state management, option includes:
 * `delay` - Debounce time for `push` in milliseconds, `50` by default.
 * `maxLength` - Max length saving history states, `100` by default.
 * `useChunks` - Whether serializing state data into chunks. `true` by default.
+* `onChange` - Fired when pushing / pulling states with changed state passed in.
 
 > If you want to use StateShot with immutable data, simply set `useChunks` to `false` and new reference to state will be directly saved as records.
 
