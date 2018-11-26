@@ -1,4 +1,4 @@
-/* global test expect */
+/* global test expect jest */
 import { History } from './history'
 
 const getState = () => ({
@@ -207,6 +207,27 @@ test('can return wrong output when picking wrong index', () => {
   state.children[0].id = 100
   history.pushSync(state, 1)
   expect(history.get()).not.toEqual(state)
+})
+
+test('support change callback', () => {
+  const onChange = jest.fn(() => {})
+  const history = new History({ onChange, delay: 0 })
+  const state = getState()
+  history.pushSync(state)
+  expect(onChange.mock.calls.length).toBe(1)
+  expect(onChange.mock.calls[0][0]).toEqual(state)
+  const newState = { ...state, name: 'root-changed' }
+  history.push(newState)
+  return history.push(newState).then(() => { // simulate calls to be debounced
+    expect(onChange.mock.calls.length).toBe(2)
+    history.get(state)
+    expect(onChange.mock.calls.length).toBe(3)
+    history.undo().get()
+    expect(onChange.mock.calls[3][0]).toEqual(state)
+    history.redo().get()
+    expect(onChange.mock.calls.length).toBe(5)
+    expect(onChange.mock.calls[4][0]).toEqual(newState)
+  })
 })
 
 test('can disable chunking', () => {

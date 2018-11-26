@@ -1,16 +1,19 @@
 import { record2State, state2Record } from './transform'
 
+const noop = () => {}
 export class History {
   constructor (options = {
     rules: [],
     delay: 50,
     maxLength: 100,
+    onChange: noop,
     useChunks: true
   }) {
     this.rules = options.rules || []
     this.delay = options.delay || 50
     this.maxLength = options.maxLength || 100
     this.useChunks = options.useChunks === undefined ? true : options.useChunks
+    this.onChange = options.onChange || noop
 
     this.$index = -1
     this.$records = []
@@ -52,9 +55,16 @@ export class History {
   // void => State
   get () {
     const currentRecord = this.$records[this.$index]
-    if (!currentRecord) return null
-    if (!this.useChunks) return currentRecord
-    return record2State(currentRecord, this.$chunks)
+    let resultState
+    if (!currentRecord) {
+      resultState = null
+    } else if (!this.useChunks) {
+      resultState = currentRecord
+    } else {
+      resultState = record2State(currentRecord, this.$chunks)
+    }
+    this.onChange(resultState)
+    return resultState
   }
 
   // (State, number?) => History
@@ -74,6 +84,7 @@ export class History {
       this.$records[this.$index - this.maxLength] = null
     }
 
+    this.onChange(state)
     return this
   }
 
