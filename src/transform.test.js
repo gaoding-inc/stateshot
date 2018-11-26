@@ -96,10 +96,9 @@ test('support node splitting', () => {
     match: ({ type }) => type === 'image',
     toRecord: node => ({
       chunks: [
-        { ...node, image: undefined },
+        { ...node, image: null },
         node.image
-      ],
-      children: null
+      ]
     }),
     fromRecord: ({ chunks, children }) => ({
       ...chunks[0],
@@ -131,8 +130,8 @@ test('support multi rules', () => {
         chunks: [
           { ...node, image: undefined },
           node.image
-        ],
-        children: null
+        ]
+        // Omit children props.
       }),
       fromRecord: ({ chunks, children }) => ({
         ...chunks[0],

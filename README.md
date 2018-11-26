@@ -145,10 +145,9 @@ Defines whether a rule can be matched. For example, if you're saving a vDOM stat
 #### `toRecord`
 `StateNode => { chunks: Chunks, children: Children }`
 
-For matched node, `chunks` is the serializable data we transform it into, and `children` picks out its children for further traversing (By default we traverse the `children` field in each state node). Usually one chunk is enough, but you can split a node into multi chunks in this manner:
+For matched node, `chunks` is the serializable data we transform it into, and `children` picks out its children for further traversing (By default we traverse the `children` field in each state node, you can customize this behavior by providing code like `children: node.elements` or so). Usually one chunk per node is enough, but you can split a node into multi chunks in this manner:
 
 ```js
-// Suppose `image` is a heavy field, we can split it into a standalone chunk.
 const state = {
   type: 'container',
   children: [
@@ -158,12 +157,12 @@ const state = {
   ]
 }
 
+// Suppose `image` is a heavy field, we can split this field as a chunk.
 const toRecord = node => ({
   chunks: [
-    { ...node, image: undefined },
+    { ...node, image: null },
     node.image
-  ],
-  children: null // No children since image node is leaf node.
+  ]
 })
 ```
 
@@ -173,6 +172,7 @@ const toRecord = node => ({
 Parse the chunks back into the state node. For case before:
 
 ```js
+// Recover state node from multi chunks.
 const fromRecord = ({ chunks, children }) => ({
   ...chunks[0],
   image: chunks[1]
