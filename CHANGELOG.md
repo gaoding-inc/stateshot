@@ -1,7 +1,8 @@
 # Changelog
 
-### `V1.2.0` - 2018-11-126
+### `V1.2.0` - 2018-11-26
 * feat: add `onChange` callback.
+* build: use ES5 bundle.
 
 ### `V1.1.0` - 2018-11-11
 * feat: add `history.length` getter.
