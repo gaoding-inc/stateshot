@@ -61,7 +61,7 @@ export class History {
     } else if (!this.useChunks) {
       resultState = currentRecord
     } else {
-      resultState = record2State(currentRecord, this.$chunks)
+      resultState = record2State(currentRecord, this.$chunks, this.rules)
     }
     this.onChange(resultState)
     return resultState
