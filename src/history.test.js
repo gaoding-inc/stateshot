@@ -191,6 +191,19 @@ test('support async push', () => {
   })
 })
 
+test('should clear pending state with sync push', () => {
+  const history = new History({ delay: 5 })
+  const state = getState()
+  setTimeout(() => {
+    state.children[0].id = 100
+    history.pushSync(state)
+  }, 0)
+  return history.push(state).then(() => {
+    expect(history.length).toEqual(1)
+    expect(history.get()).toEqual(state)
+  })
+})
+
 test('support pick index', () => {
   const history = new History()
   const state = getState()
