@@ -84,6 +84,17 @@ export class History {
       this.$records[this.$index - this.maxLength] = null
     }
 
+    // Clear pending state.
+    if (this.$pending.timer) {
+      clearTimeout(this.$pending.timer)
+      this.$pending.state = null
+      this.$pending.pickIndex = null
+      this.$pending.timer = null
+      this.$debounceTime = null
+      this.$pending.onResolves.forEach(resolve => resolve(this))
+      this.$pending.onResolves = []
+    }
+
     this.onChange(state)
     return this
   }
@@ -99,12 +110,6 @@ export class History {
         this.$pending.onResolves.push(resolve)
         this.$pending.timer = setTimeout(() => {
           this.pushSync(this.$pending.state, this.$pending.pickIndex)
-          this.$pending.state = null
-          this.$pending.pickIndex = null
-          this.$pending.timer = null
-          this.$debounceTime = null
-          this.$pending.onResolves.forEach(resolve => resolve(this))
-          this.$pending.onResolves = []
         }, this.delay)
       })
       return promise
