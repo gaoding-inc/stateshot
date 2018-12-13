@@ -64,7 +64,7 @@ test('custom match children props', () => {
     ]
   }
 
-  const rule = {
+  const rules = [{
     match: () => true,
     toRecord: node => ({
       chunks: [{ ...node, elements: undefined }],
@@ -74,11 +74,11 @@ test('custom match children props', () => {
       ...chunks[0],
       elements: children
     })
-  }
+  }]
 
   const chunks = {}
-  const record = state2Record(state, chunks, [rule])
-  const resultState = record2State(record, chunks)
+  const record = state2Record(state, chunks, rules)
+  const resultState = record2State(record, chunks, rules)
   expect(resultState).toEqual(state)
 })
 
@@ -108,7 +108,7 @@ test('support node splitting', () => {
 
   const chunks = {}
   const record = state2Record(state, chunks, [rule])
-  const resultState = record2State(record, chunks)
+  const resultState = record2State(record, chunks, [rule])
   expect(resultState).toEqual(state)
   expect(Object.keys(chunks).length).toEqual(1 + 3 * 2) // root + 2 * leaves
 })
@@ -153,7 +153,7 @@ test('support multi rules', () => {
 
   const chunks = {}
   const record = state2Record(state, chunks, rules)
-  const resultState = record2State(record, chunks)
+  const resultState = record2State(record, chunks, rules)
   expect(resultState).toEqual(state)
 })
 
