@@ -1,7 +1,6 @@
 # Changelog
 
 ### `V1.2.2` - 2018-12-14
-* feat: add `history.onChange` callback.
 * fix: redundant record when mixing `push` and `pushSync` calls.
 * refactor: use `ruleIndex` in records for history dumping support.
 
