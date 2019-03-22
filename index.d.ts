@@ -58,6 +58,16 @@ export class History {
     length: number;
 
     /**
+     * Whether current state has undo records before.
+     */
+    hasUndo: boolean;
+
+    /**
+     * Whether current state has redo records after.
+     */
+    hasRedo: boolean;
+
+    /**
      * Main class for state management
      */
     constructor(options?: IHistoryOptions);
@@ -74,7 +84,7 @@ export class History {
      * @param state state data to push.
      * @param pickIndex if specified, only this index of state's child will be serialized.
      */
-    pushSync(state: any, pickIndex?): History;
+    pushSync(state: any, pickIndex?: number): History;
 
     /**
      * Undo a record if possible, supports chaining.
@@ -85,16 +95,6 @@ export class History {
      * Redo a record if possible, supports chaining.
      */
     redo(): void;
-
-    /**
-     * Whether current state has undo records before.
-     */
-    hasUndo(): boolean;
-
-    /**
-     * Whether current state has redo records after.
-     */
-    hasRedo(): boolean;
 
     /**
      * Pull out a history state from records.
