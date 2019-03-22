@@ -29,7 +29,7 @@ interface IHistoryOptions {
 interface IRuleOptions {
     /**
      * Defines whether a rule can be matched.
-     * @param stateNode the state that you pushed
+     * @param state the state that you pushed.
      */
     match: (state: any) => boolean;
 
@@ -64,14 +64,14 @@ export class History {
 
     /**
      * Push state data into history, using pushSync under the hood.
-     * @param state state data to push
+     * @param state state data to push.
      * @param pickIndex if specified, only this index of state's child will be serialized.
      */
     push(state: any, pickIndex?: number): Promise<History>;
 
     /**
      * Push state data into history.
-     * @param state state data to push
+     * @param state state data to push.
      * @param pickIndex if specified, only this index of state's child will be serialized.
      */
     pushSync(state: any, pickIndex?): History;
