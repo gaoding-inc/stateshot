@@ -34,19 +34,19 @@ interface IRuleOptions {
     match: (state: any) => boolean;
 
     /**
-     * Split state into shareable chuncks.
+     * Split state into shareable chunks.
      */
     toRecord: (state: any) => {
-        chuncks: any[];
+        chunks: any[];
         children?: any[];
     };
 
     /**
      * Parse the chunks back into the state node
-     * @param shareableChuncks
+     * @param shareableChunks
      */
-    fromRecord: (shareableChuncks: {
-        chuncks: any[],
+    fromRecord: (shareableChunks: {
+        chunks: any[],
         children: any[]
     }) => any;
 }
@@ -89,12 +89,12 @@ export class History {
     /**
      * Undo a record if possible, supports chaining.
      */
-    undo(): void;
+    undo(): History;
 
     /**
      * Redo a record if possible, supports chaining.
      */
-    redo(): void;
+    redo(): History;
 
     /**
      * Pull out a history state from records.
