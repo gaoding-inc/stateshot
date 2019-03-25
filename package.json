@@ -15,6 +15,7 @@
     "lint": "standard",
     "release": "npm run build && np"
   },
+  "types": "./index.d.ts",
   "files": [
     "*.md",
     "src",
