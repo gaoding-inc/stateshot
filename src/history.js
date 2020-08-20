@@ -26,7 +26,7 @@ export class History {
     this.$debounceTime = null
 
     if (options.initialState !== undefined) {
-      this.pushSync(options.initialState);
+      this.pushSync(options.initialState)
     }
 
     if (options.onChange) {
