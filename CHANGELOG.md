@@ -1,6 +1,6 @@
 # Changelog
 
-### `V1.3.1` - 2020-08-20
+### `V1.3.2` - 2020-08-20
 * feat: add `initialState` support.
 
 ### `V1.2.2` - 2018-12-14

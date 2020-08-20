@@ -6,6 +6,11 @@ interface IHistoryOptions {
     rules?: IRuleOptions[];
 
     /**
+     * Optional initial state.
+     */
+    initialState?: any;
+
+    /**
      * Debounce time for push in milliseconds, 50 by default.
      */
     delay?: number;
