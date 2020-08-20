@@ -75,6 +75,7 @@ With this hint, only the affected child's hash will be re-computed. Other childr
 
 Main class for state management, option includes:
 
+* `initialState` - Optional initial state.
 * `rules` - Optional rules array for optimizing data transforming.
 * `delay` - Debounce time for `push` in milliseconds, `50` by default.
 * `maxLength` - Max length saving history states, `100` by default.
