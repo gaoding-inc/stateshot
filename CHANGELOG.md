@@ -1,5 +1,8 @@
 # Changelog
 
+### `V1.3.1` - 2020-08-20
+* feat: add `initialState` support.
+
 ### `V1.2.2` - 2018-12-14
 * fix: redundant record when mixing `push` and `pushSync` calls.
 * refactor: use `ruleIndex` in records for history dumping support.
