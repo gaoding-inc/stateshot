@@ -25,6 +25,12 @@ test('can init history', () => {
   expect(history.get()).toEqual(state)
 })
 
+test('can supply initial history', () => {
+  const state = getState()
+  const history = new History({ initialState: state })
+  expect(history.get()).toEqual(state)
+})
+
 test('has correct undo/redo flag', () => {
   const history = new History()
   expect(history.hasUndo).toBeFalsy()
@@ -241,6 +247,13 @@ test('support change callback', () => {
     expect(onChange.mock.calls.length).toBe(5)
     expect(onChange.mock.calls[4][0]).toEqual(newState)
   })
+})
+
+test("change callback isn't fired for initial state", () => {
+  const onChange = jest.fn(() => {})
+  const state = getState()
+  const history = new History({ initialState: state, onChange })
+  expect(onChange.mock.calls.length).toBe(0)
 })
 
 test('can disable chunking', () => {
