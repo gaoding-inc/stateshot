@@ -9,7 +9,7 @@
     <img src='https://coveralls.io/repos/github/gaoding-inc/stateshot/badge.svg?branch=master' alt='Coverage Status'/>
   </a>
   <a href="https://unpkg.com/stateshot/dist/stateshot.min.js">
-    <img src="http://img.badgesize.io/https://unpkg.com/stateshot/dist/stateshot.min.js?compression=gzip&amp;label=size&amp;maxAge=300"/>
+    <img src="https://img.shields.io/bundlephobia/minzip/stateshot"/>
   </a>
   <a href="https://standardjs.com">
     <img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg"/>
