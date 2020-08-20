@@ -1,5 +1,8 @@
 # Changelog
 
+### `V1.3.3` - 2020-08-20
+* type: improved TypeScript support.
+
 ### `V1.3.2` - 2020-08-20
 * feat: add `initialState` support.
 
