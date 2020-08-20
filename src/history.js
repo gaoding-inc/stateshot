@@ -3,6 +3,7 @@ import { record2State, state2Record } from './transform'
 const noop = () => {}
 export class History {
   constructor (options = {
+    initialState: undefined,
     rules: [],
     delay: 50,
     maxLength: 100,
@@ -13,7 +14,7 @@ export class History {
     this.delay = options.delay || 50
     this.maxLength = options.maxLength || 100
     this.useChunks = options.useChunks === undefined ? true : options.useChunks
-    this.onChange = options.onChange || noop
+    this.onChange = noop
 
     this.$index = -1
     this.$records = []
@@ -23,6 +24,14 @@ export class History {
       state: null, pickIndex: null, onResolves: [], timer: null
     }
     this.$debounceTime = null
+
+    if (options.initialState !== undefined) {
+      this.pushSync(options.initialState);
+    }
+
+    if (options.onChange) {
+      this.onChange = options.onChange
+    }
   }
 
   // : boolean
