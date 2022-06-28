@@ -211,3 +211,15 @@ test('support record root children copy', () => {
   const resultState = record2State(newRecord, chunks)
   expect(resultState).toEqual(state)
 })
+
+test('support circular structure to JSON', () => {
+  const parent = { children: [], name: 'foo' }
+  const child = { parent, name: 'boo' }
+  parent.children.push(child)
+  const state = { parent }
+  const chunks = {}
+  const record = state2Record(state, chunks)
+  const resultState = record2State(record, chunks)
+  expect(resultState.parent.name).toEqual(parent.name)
+  expect(resultState.parent.children[0].name).toEqual(child.name)
+})
