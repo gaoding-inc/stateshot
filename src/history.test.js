@@ -252,7 +252,8 @@ test('support change callback', () => {
 test("change callback isn't fired for initial state", () => {
   const onChange = jest.fn(() => {})
   const state = getState()
-  void new History({ initialState: state, onChange })
+  // eslint-disable-next-line no-new
+  new History({ initialState: state, onChange })
   expect(onChange.mock.calls.length).toBe(0)
 })
 
