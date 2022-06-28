@@ -1,4 +1,5 @@
 import { hashFunc } from './hash'
+import { safeStringify } from './utils'
 
 const defaultRule = {
   // StateNode => { Chunks, Children }
@@ -19,7 +20,7 @@ export const state2Record = (
   const recordChildren = children
   const hashes = []
   for (let i = 0; i < chunks.length; i++) {
-    const chunkStr = JSON.stringify(chunks[i])
+    const chunkStr = safeStringify(chunks[i])
     const hashKey = hashFunc(chunkStr)
     hashes.push(hashKey)
     chunkPool[hashKey] = chunkStr
