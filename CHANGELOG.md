@@ -1,5 +1,12 @@
 # Changelog
 
+### `V1.3.5` - 2022-12-11
+* perf: optimize chunk data structure
+* perf: optimize chunk JSON size
+
+### `V1.3.4` - 2022-01-28
+* fix: support circular JSON structure @boomyao
+
 ### `V1.3.3` - 2020-08-20
 * type: improved TypeScript support.
 
