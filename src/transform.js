@@ -20,7 +20,7 @@ export const state2Record = (
   const recordChildren = children
   const hashes = []
   for (let i = 0; i < chunks.length; i++) {
-    const chunkStr = safeStringify(chunks[i])
+    const chunkStr = safeStringify(chunks[i], 0)
     const hashKey = hashFunc(chunkStr)
     hashes.push(hashKey)
     chunkPool[hashKey] = chunkStr
