@@ -81,24 +81,24 @@ export class History<T = any> {
      * @param state state data to push.
      * @param pickIndex if specified, only this index of state's child will be serialized.
      */
-    push(state: T, pickIndex?: number): Promise<History>;
+    push(state: T, pickIndex?: number): Promise<History<T>>;
 
     /**
      * Push state data into history.
      * @param state state data to push.
      * @param pickIndex if specified, only this index of state's child will be serialized.
      */
-    pushSync(state: T, pickIndex?: number): History;
+    pushSync(state: T, pickIndex?: number): History<T>;
 
     /**
      * Undo a record if possible, supports chaining.
      */
-    undo(): History;
+    undo(): History<T>;
 
     /**
      * Redo a record if possible, supports chaining.
      */
-    redo(): History;
+    redo(): History<T>;
 
     /**
      * Pull out a history state from records.
@@ -108,5 +108,5 @@ export class History<T = any> {
     /**
      * Clear internal data structure.
      */
-    reset(): History;
+    reset(): History<T>;
 }
